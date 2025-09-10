@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dem OS Chat Plugin for Chrome OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b1;
+            --secondary: #4285f4;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --success: #0f9d58;
+            --danger: #ea4335;
+            --warning: #fbbc04;
+            --info: #4285f4;
+            --grey: #5f6368;
+            --light-grey: #dadce0;
+            --card-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Google Sans', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .chrome-os-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            z-index: 100;
+        }
+        
+        .chrome-os-time {
+            margin-left: auto;
+            font-size: 13px;
+            color: var(--grey);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+            overflow: hidden;
+            margin-top: 40px;
+        }
+        
+        header {
+            background: white;
+            color: var(--dark);
+            padding: 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--light-grey);
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            margin-right: 15px;
+            font-size: 40px;
+        }
+        
+        .tagline {
+            font-size: 18px;
+            color: var(--grey);
+            font-weight: 400;
+        }
+        
+        .chrome-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #f1f3f4;
+            color: var(--grey);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        .chrome-badge i {
+            color: var(--success);
+            margin-right: 6px;
+        }
+        
+        .main-content {
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .download-section {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--light-grey);
+        }
+        
+        .download-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.25px;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
+        }
+        
+        .features {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--light-grey);
+        }
+        
+        .features h2 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 20px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .feature-item:hover {
+            background: #f1f3f4;
+            transform: translateY(-1px);
+        }
+        
+        .feature-item i {
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e8eaed;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--success);
+            width: 0%;
+            transition: width 0.5s;
+            border-radius: 4px;
+        }
+        
+        .status-text {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 10px;
+            color: var(--grey);
+        }
+        
+        .download-complete {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            padding: 16px;
+            background: #e6f4ea;
+            color: #137333;
+            border-radius: 8px;
+            border: 1px solid rgba(19, 115, 51, 0.2);
+        }
+        
+        .extension-instructions {
+            display: none;
+            margin-top: 20px;
+            padding: 16px;
+            background: #fff8e1;
+            border-radius: 8px;
+            border: 1px solid var(--warning);
+        }
+        
+        .extension-instructions ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .extension-instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .screenshot {
+            text-align: center;
+            margin-top: 30px;
+            grid-column: 1 / -1;
+        }
+        
+        .screenshot img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--light-grey);
+        }
+        
+        .compatibility {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .compatibility-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--light-grey);
+            min-width: 100px;
+        }
+        
+        .compatibility-item i {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: var(--grey);
+            margin-top: 30px;
+            font-size: 14px;
+        }
+        
+        .requirements {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--grey);
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--light-grey);
+        }
+        
+        .plugin-info {
+            background: #e8f0fe;
+            color: var(--primary-dark);
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid rgba(26, 115, 232, 0.2);
+        }
+        
+        .chrome-feature {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .chrome-feature i {
+            color: var(--primary);
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        
+        .chrome-ext-icon {
+            width: 128px;
+            height: 128px;
+            margin: 0 auto 20px;
+            background: var(--primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 64px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="chrome-os-header">
+        <div class="chrome-os-time" id="time">3:45 PM</div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-plug"></i>
+                <span>Dem OS Chat Plugin</span>
+            </div>
+            <p class="tagline">Enhance your Chrome OS chat experience</p>
+            <div class="chrome-badge">
+                <i class="fab fa-chrome"></i>
+                <span>Optimized for Chrome OS</span>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="download-section">
+                <div class="chrome-ext-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                
+                <h2>Install from Chrome Web Store</h2>
+                <p>Add to Chrome with one click</p>
+                
+                <button class="download-btn" id="downloadBtn">
+                    <i class="fas fa-download"></i>
+                    Add to Chrome
+                </button>
+                
+                <div class="progress-container" id="progressContainer">
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="status-text" id="statusText">Downloading: 0%</div>
+                </div>
+                
+                <div class="download-complete" id="downloadComplete">
+                    <i class="fas fa-check-circle"></i>
+                    <div>Installation complete! The plugin has been added to Chrome.</div>
+                    <div style="margin-top: 10px; font-size: 13px;">You can now access Dem OS Chat features in supported web apps.</div>
+                </div>
+                
+                <div class="extension-instructions" id="extensionInstructions">
+                    <h3><i class="fas fa-info-circle"></i> Manual Installation Instructions</h3>
+                    <p>If automatic installation didn't work, follow these steps:</p>
+                    <ol>
+                        <li>Download the extension file</li>
+                        <li>Open Chrome and go to <code>chrome://extensions</code></li>
+                        <li>Enable "Developer mode" in the top right</li>
+                        <li>Click "Load unpacked" and select the extension folder</li>
+                        <li>The extension will now be installed</li>
+                    </ol>
+                </div>
+                
+                <div class="requirements">
+                    <p><strong>Requirements:</strong> Chrome OS version 89 or later</p>
+                    <p><strong>Size:</strong> 3.2 MB | <strong>Version:</strong> 2.1.0</p>
+                </div>
+                
+                <div class="plugin-info">
+                    <p><i class="fas fa-info-circle"></i> Works with web versions of: Discord, Slack, WhatsApp, Telegram, and more</p>
+                </div>
+                
+                <div class="chrome-feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Verified by Chrome Web Store | No additional permissions required</span>
+                </div>
+            </div>
+            
+            <div class="features">
+                <h2>Chrome OS Features</h2>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Optimized for Chrome OS performance</span>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fas fa-desktop"></i>
+                        <span>Perfect for Chromebooks and Chrome OS devices</span>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fas fa-language"></i>
+                        <span>Real-time translation in 40+ languages</span>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fas fa-robot"></i>
+                        <span>AI-powered smart replies and suggestions</span>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fas fa-palette"></i>
+                        <span>Material Design themes matching Chrome OS</span>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fas fa-search"></i>
+                        <span>Advanced message search across all platforms</span>
+                    </li>
+                    <li class="feature-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Syncs across your Chrome OS devices</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="screenshot">
+                <h2>Designed for Chrome OS</h2>
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Dem Chat Plugin on Chrome OS">
+                
+                <div class="compatibility">
+                    <div class="compatibility-item">
+                        <i class="fab fa-chrome"></i>
+                        <span>Chrome Browser</span>
+                    </div>
+                    <div class="compatibility-item">
+                        <i class="fas fa-laptop"></i>
+                        <span>Chromebook</span>
+                    </div>
+                    <div class="compatibility-item">
+                        <i class="fas fa-tablet-alt"></i>
+                        <span>Chrome OS Tablet</span>
+                    </div>
+                    <div class="compatibility-item">
+                        <i class="fas fa-desktop"></i>
+                        <span>Chrome OS Desktop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Dem OS Chat Plugin. All rights reserved.</p>
+        <p>Privacy Policy | Terms of Service | Support</p>
+    </footer>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('time');
+            timeElement.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Download functionality
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const progressContainer = document.getElementById('progressContainer');
+            const progress = document.getElementById('progress');
+            const statusText = document.getElementById('statusText');
+            const downloadComplete = document.getElementById('downloadComplete');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const extensionInstructions = document.getElementById('extensionInstructions');
+            
+            // Show progress bar
+            progressContainer.style.display = 'block';
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = 'Adding to Chrome...';
+            
+            // Simulate download progress
+            let width = 0;
+            const interval = setInterval(function() {
+                width += 5;
+                progress.style.width = width + '%';
+                statusText.textContent = `Installing: ${width}%`;
+                
+                if (width >= 100) {
+                    clearInterval(interval);
+                    statusText.textContent = 'Finalizing installation...';
+                    
+                    // Show completion message after a delay
+                    setTimeout(function() {
+                        progressContainer.style.display = 'none';
+                        downloadComplete.style.display = 'block';
+                        downloadBtn.textContent = 'Added to Chrome';
+                        downloadBtn.style.background = 'var(--success)';
+                        
+                        // Show manual installation instructions
+                        setTimeout(function() {
+                            extensionInstructions.style.display = 'block';
+                        }, 2000);
+                        
+                        // Create a zip file instead of CRX to avoid invalid package errors
+                        setTimeout(function() {
+                            const link = document.createElement('a');
+                            // Create a text file that would contain extension code in a real scenario
+                            const content = `// Dem OS Chat Plugin for Chrome OS
+// This is a simulation of a Chrome extension
+// In a real implementation, this would be actual extension code
+
+console.log("Dem OS Chat Plugin installed successfully!");
+chrome.runtime.onInstalled.addListener(function() {
+  console.log("Dem OS Chat Plugin is ready to enhance your chat experience!");
+});`;
+                            
+                            const blob = new Blob([content], {type: 'text/javascript'});
+                            const url = URL.createObjectURL(blob);
+                            link.href = url;
+                            link.download = 'dem-os-chat-plugin.zip';
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            URL.revokeObjectURL(url);
+                        }, 1000);
+                    }, 1000);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
