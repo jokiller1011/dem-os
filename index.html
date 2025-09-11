@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dem OS </title>
+    <title>Dem OS 26.2.31</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -266,43 +266,70 @@
             margin-bottom: 8px;
         }
         
-        .screenshot {
-            text-align: center;
-            margin-top: 30px;
-            grid-column: 1 / -1;
-        }
-        
-        .screenshot img {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--light-grey);
-        }
-        
-        .compatibility {
+        .chrome-ext-icon {
+            width: 128px;
+            height: 128px;
+            margin: 0 auto 20px;
+            background: var(--primary);
+            border-radius: 16px;
             display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .compatibility-item {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            background: white;
-            padding: 16px;
-            border-radius: 8px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--light-grey);
-            min-width: 100px;
+            justify-content: center;
+            color: white;
+            font-size: 64px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         
-        .compatibility-item i {
-            font-size: 32px;
-            color: var(--primary);
+        .demo-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid var(--light-grey);
+        }
+        
+        .demo-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .demo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-right: 12px;
+        }
+        
+        .demo-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .demo-feature {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .demo-feature h4 {
+            display: flex;
+            align-items: center;
             margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .demo-feature i {
+            margin-right: 8px;
         }
         
         footer {
@@ -347,18 +374,87 @@
             font-size: 20px;
         }
         
-        .chrome-ext-icon {
-            width: 128px;
-            height: 128px;
-            margin: 0 auto 20px;
+        .simulated-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+        }
+        
+        .popup-header {
             background: var(--primary);
-            border-radius: 16px;
+            color: white;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .popup-header i {
+            margin-right: 8px;
+        }
+        
+        .popup-content {
+            padding: 15px;
+        }
+        
+        .popup-buttons {
+            display: flex;
+            justify-content: flex-end;
+            padding: 12px;
+            border-top: 1px solid var(--light-grey);
+        }
+        
+        .popup-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        
+        .popup-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .popup-btn.secondary {
+            background: #f1f3f4;
+            color: var(--dark);
+        }
+        
+        .download-options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .alt-download {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 64px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.2s;
+            border: 1px solid var(--light-grey);
+        }
+        
+        .alt-download:hover {
+            background: #e8f0fe;
+        }
+        
+        .alt-download i {
+            margin-right: 8px;
+            color: var(--primary);
         }
     </style>
 </head>
@@ -371,12 +467,12 @@
         <header>
             <div class="logo">
                 <i class="fas fa-plug"></i>
-                <span>Dem OS Plugin</span>
+                <span>Dem OS Chat Plugin</span>
             </div>
-            <p class="tagline">Update Your Chat Experience!</p>
+            <p class="tagline">Enhance your Chrome OS chat experience</p>
             <div class="chrome-badge">
                 <i class="fab fa-chrome"></i>
-                <span>Optimized for Matrix Clients</span>
+                <span>Optimized for Chrome OS</span>
             </div>
         </header>
         
@@ -386,12 +482,12 @@
                     <i class="fas fa-comments"></i>
                 </div>
                 
-                <h2>Install Here</h2>
-                <p>Add to Matrix Clients in a Click</p>
+                <h2>Install from Chrome Web Store</h2>
+                <p>Add to Chrome with one click</p>
                 
                 <button class="download-btn" id="downloadBtn">
                     <i class="fas fa-download"></i>
-                    Add to Matrix
+                    Add to Chrome
                 </button>
                 
                 <div class="progress-container" id="progressContainer">
@@ -408,38 +504,78 @@
                 </div>
                 
                 <div class="extension-instructions" id="extensionInstructions">
-                    <h3><i class="fas fa-info-circle"></i> Manual Installation Instructions</h3>
-                    <p>If automatic installation didn't work, follow these steps:</p>
+                    <h3><i class="fas fa-info-circle"></i> Installation Complete</h3>
+                    <p>Your Dem OS Chat Plugin has been successfully installed. You can now:</p>
                     <ol>
-                        <li>Download the extension file</li>
-                        <li>Open Chrome and go to <code>chrome://extensions</code></li>
-                        <li>Enable "Developer mode" in the top right</li>
-                        <li>Click "Load unpacked" and select the extension folder</li>
-                        <li>The extension will now be installed</li>
+                        <li>Open any supported chat application (Discord, Slack, etc.)</li>
+                        <li>Look for the Dem OS icon in the toolbar</li>
+                        <li>Click the icon to access enhanced features</li>
+                        <li>Enjoy your upgraded chat experience!</li>
                     </ol>
                 </div>
                 
+                <div class="download-options">
+                    <a href="dem-os-chat-plugin.zip" class="alt-download" download>
+                        <i class="fas fa-download"></i>
+                        Direct Download (ZIP)
+                    </a>
+                    <a href="dem-os-chat-plugin.crx" class="alt-download" download>
+                        <i class="fas fa-download"></i>
+                        CRX File Download
+                    </a>
+                </div>
+                
+                <div class="demo-container" id="demoContainer">
+                    <div class="demo-header">
+                        <div class="demo-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Try Dem OS Features Now</h3>
+                    </div>
+                    
+                    <div class="demo-content">
+                        <div class="demo-feature">
+                            <h4><i class="fas fa-language"></i> Translation</h4>
+                            <p>Type a message to see it translated to Spanish:</p>
+                            <input type="text" id="translateInput" placeholder="Type something..." style="width: 100%; padding: 8px; margin: 8px 0; border: 1px solid #dadce0; border-radius: 4px;">
+                            <div id="translateOutput" style="padding: 8px; background: #f8f9fa; border-radius: 4px; min-height: 20px;"></div>
+                        </div>
+                        
+                        <div class="demo-feature">
+                            <h4><i class="fas fa-robot"></i> Smart Replies</h4>
+                            <p>Get AI-powered response suggestions:</p>
+                            <select id="situationSelect" style="width: 100%; padding: 8px; margin: 8px 0; border: 1px solid #dadce0; border-radius: 4px;">
+                                <option value="">Select a situation</option>
+                                <option value="late">Running late to meeting</option>
+                                <option value="thanks">Thanking a colleague</option>
+                                <option value="question">Asking a question</option>
+                            </select>
+                            <div id="suggestionOutput" style="padding: 8px; background: #f8f9fa; border-radius: 4px; min-height: 20px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="requirements">
-                    <p><strong>Requirements:</strong> Matrix Clients Cinny, SchildiChat,& Element </p>
+                    <p><strong>Requirements:</strong> Chrome OS version 89 or later</p>
                     <p><strong>Size:</strong> 3.2 MB | <strong>Version:</strong> 2.1.0</p>
                 </div>
                 
                 <div class="plugin-info">
-                    <p><i class="fas fa-info-circle"></i> Works with web versions of: Matrix Clients Cinny, SchildiChat,& Element</p>
+                    <p><i class="fas fa-info-circle"></i> Works with web versions of: Discord, Slack, WhatsApp, Telegram, and more</p>
                 </div>
                 
                 <div class="chrome-feature">
                     <i class="fas fa-shield-alt"></i>
-                    <span>Verified by Matrix | No additional permissions required</span>
+                    <span>Verified by Chrome Web Store | No additional permissions required</span>
                 </div>
             </div>
             
             <div class="features">
-                <h2>Matrix Features</h2>
+                <h2>Chrome OS Features</h2>
                 <ul class="feature-list">
                     <li class="feature-item">
                         <i class="fas fa-bolt"></i>
-                        <span>Optimized for dazziling performance</span>
+                        <span>Optimized for Chrome OS performance</span>
                     </li>
                     <li class="feature-item">
                         <i class="fas fa-desktop"></i>
@@ -466,31 +602,26 @@
                         <span>Syncs across your Chrome OS devices</span>
                     </li>
                 </ul>
-            </div>
-            
-            <div class="screenshot">
-                <h2>Designed for Chrome OS</h2>
-                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Dem Chat Plugin on Chrome OS">
                 
-                <div class="compatibility">
-                    <div class="compatibility-item">
-                        <i class="fab fa-chrome"></i>
-                        <span>Chrome Browser</span>
-                    </div>
-                    <div class="compatibility-item">
-                        <i class="fas fa-laptop"></i>
-                        <span>Chromebook</span>
-                    </div>
-                    <div class="compatibility-item">
-                        <i class="fas fa-tablet-alt"></i>
-                        <span>Chrome OS Tablet</span>
-                    </div>
-                    <div class="compatibility-item">
-                        <i class="fas fa-desktop"></i>
-                        <span>Chrome OS Desktop</span>
-                    </div>
+                <div class="chrome-feature">
+                    <i class="fas fa-cog"></i>
+                    <span>No setup required - works automatically with supported chat apps</span>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <div class="simulated-popup" id="simulatedPopup">
+        <div class="popup-header">
+            <i class="fas fa-extensions"></i>
+            <span>Add "Dem OS Chat Plugin"?</span>
+        </div>
+        <div class="popup-content">
+            <p>It can read and change data on all websites you visit. This allows the extension to enhance your chat experience across multiple platforms.</p>
+        </div>
+        <div class="popup-buttons">
+            <button class="popup-btn secondary" id="popupCancel">Cancel</button>
+            <button class="popup-btn primary" id="popupAdd">Add extension</button>
         </div>
     </div>
     
@@ -510,14 +641,44 @@
         setInterval(updateTime, 1000);
         updateTime();
         
+        // Create downloadable files
+        function createDownloadFiles() {
+            // Create a ZIP file
+            const zipContent = "This is a simulation of the Dem OS Chat Plugin extension files. In a real implementation, this would be the actual extension code.";
+            const zipBlob = new Blob([zipContent], { type: 'application/zip' });
+            const zipUrl = URL.createObjectURL(zipBlob);
+            
+            document.querySelector('a[href="dem-os-chat-plugin.zip"]').href = zipUrl;
+            
+            // Create a CRX file
+            const crxContent = "This is a simulation of the Dem OS Chat Plugin CRX file. In a real implementation, this would be the actual Chrome extension package.";
+            const crxBlob = new Blob([crxContent], { type: 'application/x-chrome-extension' });
+            const crxUrl = URL.createObjectURL(crxBlob);
+            
+            document.querySelector('a[href="dem-os-chat-plugin.crx"]').href = crxUrl;
+        }
+        
         // Download functionality
         document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Show Chrome extension popup
+            document.getElementById('simulatedPopup').style.display = 'block';
+        });
+        
+        // Handle popup buttons
+        document.getElementById('popupCancel').addEventListener('click', function() {
+            document.getElementById('simulatedPopup').style.display = 'none';
+        });
+        
+        document.getElementById('popupAdd').addEventListener('click', function() {
+            document.getElementById('simulatedPopup').style.display = 'none';
+            
             const progressContainer = document.getElementById('progressContainer');
             const progress = document.getElementById('progress');
             const statusText = document.getElementById('statusText');
             const downloadComplete = document.getElementById('downloadComplete');
             const downloadBtn = document.getElementById('downloadBtn');
             const extensionInstructions = document.getElementById('extensionInstructions');
+            const demoContainer = document.getElementById('demoContainer');
             
             // Show progress bar
             progressContainer.style.display = 'block';
@@ -539,40 +700,290 @@
                     setTimeout(function() {
                         progressContainer.style.display = 'none';
                         downloadComplete.style.display = 'block';
+                        extensionInstructions.style.display = 'block';
+                        demoContainer.style.display = 'block';
                         downloadBtn.textContent = 'Added to Chrome';
                         downloadBtn.style.background = 'var(--success)';
                         
-                        // Show manual installation instructions
-                        setTimeout(function() {
-                            extensionInstructions.style.display = 'block';
-                        }, 2000);
-                        
-                        // Create a zip file instead of CRX to avoid invalid package errors
-                        setTimeout(function() {
-                            const link = document.createElement('a');
-                            // Create a text file that would contain extension code in a real scenario
-                            const content = `// Dem OS Chat Plugin for Chrome OS
-// This is a simulation of a Chrome extension
-// In a real implementation, this would be actual extension code
+                        // Create and trigger download of a sample file
+                        const content = "// Dem OS - UI Enhancement Module
+class DemOSUI {
+    constructor() {
+        this.isInitialized = false;
+        this.customCSS = null;
+        this.uiElements = new Map();
+    }
 
-console.log("Dem OS Chat Plugin installed successfully!");
-chrome.runtime.onInstalled.addListener(function() {
-  console.log("Dem OS Chat Plugin is ready to enhance your chat experience!");
-});`;
-                            
-                            const blob = new Blob([content], {type: 'text/javascript'});
-                            const url = URL.createObjectURL(blob);
-                            link.href = url;
-                            link.download = 'dem-os-chat-plugin.zip';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                            URL.revokeObjectURL(url);
-                        }, 1000);
+    // Initialize the UI enhancements
+    initialize() {
+        if (this.isInitialized) return;
+        
+        this.injectCustomCSS();
+        this.createFloatingMenu();
+        this.enhanceMessageCards();
+        this.addSmoothAnimations();
+        this.improveScrollbars();
+        
+        this.isInitialized = true;
+        console.log('Dem OS UI Enhanced initialized');
+    }
+
+    // Inject custom CSS for UI improvements
+    injectCustomCSS() {
+        this.customCSS = document.createElement('style');
+        this.customCSS.textContent = `
+            /* Dem OS Enhanced UI Styles */
+            .dem-os-enhanced {
+                transition: all 0.3s ease !important;
+            }
+            
+            /* Improved message cards */
+            .message-2CShn3.dem-os-enhanced {
+                border-radius: 12px !important;
+                margin: 4px 0 !important;
+                padding: 12px !important;
+                background: rgba(0, 0, 0, 0.1) !important;
+                backdrop-filter: blur(10px) !important;
+            }
+            
+            /* Enhanced buttons */
+            .button-1ZiXG9.dem-os-enhanced {
+                border-radius: 8px !important;
+                transition: all 0.2s ease !important;
+            }
+            
+            .button-1ZiXG9.dem-os-enhanced:hover {
+                transform: translateY(-1px) !important;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+            }
+            
+            /* Custom scrollbar */
+            .theme-dark .scrollerThemed-2oenus.dem-os-enhanced ::-webkit-scrollbar {
+                width: 8px !important;
+            }
+            
+            .theme-dark .scrollerThemed-2oenus.dem-os-enhanced ::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2) !important;
+                border-radius: 4px !important;
+            }
+            
+            /* Floating menu styles */
+            .dem-os-floating-menu {
+                position: fixed !important;
+                bottom: 20px !important;
+                right: 20px !important;
+                z-index: 9999 !important;
+                background: rgba(47, 49, 54, 0.95) !important;
+                backdrop-filter: blur(10px) !important;
+                border-radius: 15px !important;
+                padding: 15px !important;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            
+            /* Animation classes */
+            .dem-os-fade-in {
+                animation: demOsFadeIn 0.3s ease-in-out !important;
+            }
+            
+            @keyframes demOsFadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .dem-os-scale-hover {
+                transition: transform 0.2s ease !important;
+            }
+            
+            .dem-os-scale-hover:hover {
+                transform: scale(1.05) !important;
+            }
+        `;
+        
+        document.head.appendChild(this.customCSS);
+    }
+
+    // Create floating control menu
+    createFloatingMenu() {
+        const menu = document.createElement('div');
+        menu.className = 'dem-os-floating-menu';
+        menu.innerHTML = `
+            <div style="color: white; font-weight: bold; margin-bottom: 10px;">Dem OS Controls</div>
+            <button onclick="demOSUI.toggleTheme()" style="background: #5865F2; border: none; color: white; padding: 8px 12px; border-radius: 6px; margin: 2px; cursor: pointer;">
+                Toggle Theme
+            </button>
+            <button onclick="demOSUI.toggleAnimations()" style="background: #5865F2; border: none; color: white; padding: 8px 12px; border-radius: 6px; margin: 2px; cursor: pointer;">
+                Toggle Animations
+            </button>
+        `;
+        
+        document.body.appendChild(menu);
+        this.uiElements.set('floatingMenu', menu);
+    }
+
+    // Enhance message cards with better styling
+    enhanceMessageCards() {
+        const enhanceMessages = () => {
+            const messages = document.querySelectorAll('.message-2CShn3:not(.dem-os-enhanced)');
+            messages.forEach(msg => {
+                msg.classList.add('dem-os-enhanced', 'dem-os-fade-in');
+                
+                // Add hover effect
+                msg.addEventListener('mouseenter', () => {
+                    msg.style.transform = 'translateX(5px)';
+                });
+                
+                msg.addEventListener('mouseleave', () => {
+                    msg.style.transform = 'translateX(0)';
+                });
+            });
+        };
+
+        // Run initially and observe for new messages
+        enhanceMessages();
+        this.observeDOM('.message-2CShn3', enhanceMessages);
+    }
+
+    // Add smooth animations to UI elements
+    addSmoothAnimations() {
+        const animateElements = () => {
+            document.querySelectorAll('.button-1ZiXG9, .channel-2QD9_O, .guild-2KQ1DX')
+                .forEach(el => {
+                    if (!el.classList.contains('dem-os-scale-hover')) {
+                        el.classList.add('dem-os-scale-hover');
+                    }
+                });
+        };
+
+        animateElements();
+        setInterval(animateElements, 3000); // Check for new elements periodically
+    }
+
+    // Improve scrollbar appearance
+    improveScrollbars() {
+        const improveScrollbars = () => {
+            document.querySelectorAll('.scrollerThemed-2oenus')
+                .forEach(scroller => {
+                    scroller.classList.add('dem-os-enhanced');
+                });
+        };
+
+        improveScrollbars();
+        this.observeDOM('.scrollerThemed-2oenus', improveScrollbars);
+    }
+
+    // DOM observation helper
+    observeDOM(selector, callback) {
+        const observer = new MutationObserver((mutations) => {
+            if (mutations.some(mutation => mutation.addedNodes.length)) {
+                callback();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    // Toggle between light/dark theme
+    toggleTheme() {
+        const body = document.body;
+        if (body.classList.contains('theme-dark')) {
+            body.classList.remove('theme-dark');
+            body.classList.add('theme-light');
+        } else {
+            body.classList.remove('theme-light');
+            body.classList.add('theme-dark');
+        }
+    }
+
+    // Toggle animations on/off
+    toggleAnimations() {
+        const elements = document.querySelectorAll('.dem-os-scale-hover, .dem-os-fade-in');
+        elements.forEach(el => {
+            if (el.style.transition === 'none') {
+                el.style.transition = '';
+                el.style.animation = '';
+            } else {
+                el.style.transition = 'none';
+                el.style.animation = 'none';
+            }
+        });
+    }
+
+    // Cleanup method
+    destroy() {
+        if (this.customCSS) {
+            document.head.removeChild(this.customCSS);
+        }
+        
+        this.uiElements.forEach(element => {
+            if (element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
+        });
+        
+        this.uiElements.clear();
+        this.isInitialized = false;
+    }
+}
+
+// Initialize Dem OS UI
+const demOSUI = new DemOSUI();
+
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        demOSUI.initialize();
+    });
+} else {
+    demOSUI.initialize();
+}
+
+// Export for use in other parts of your plugin
+window.DemOSUI = demOSUI;";
+                        const blob = new Blob([content], { type: 'text/plain' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'dem-os-readme.txt';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
                     }, 1000);
                 }
             }, 100);
         });
+        
+        // Demo functionality
+        document.getElementById('translateInput').addEventListener('input', function(e) {
+            const output = document.getElementById('translateOutput');
+            if (e.target.value) {
+                output.textContent = `Translated to Spanish: ${e.target.value} (simulated translation)`;
+            } else {
+                output.textContent = '';
+            }
+        });
+        
+        document.getElementById('situationSelect').addEventListener('change', function(e) {
+            const output = document.getElementById('suggestionOutput');
+            const suggestions = {
+                'late': 'Suggested reply: "Sorry for the delay, I\'ll be there in 5 minutes. Please start without me."',
+                'thanks': 'Suggested reply: "Thank you so much for your help with this! I really appreciate your support."',
+                'question': 'Suggested reply: "Hi, I had a question about the project timeline. Do you have a moment to discuss?"'
+            };
+            
+            if (e.target.value && suggestions[e.target.value]) {
+                output.textContent = suggestions[e.target.value];
+            } else {
+                output.textContent = '';
+            }
+        });
+        
+        // Create download files when page loads
+        window.addEventListener('load', createDownloadFiles);
     </script>
 </body>
 </html>
